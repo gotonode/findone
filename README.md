@@ -10,4 +10,4 @@ To access FindOne, go here: [https://findone.herokuapp.com/](https://findone.her
 
 You can contact me via email: [gotonode@outlook.com](gotonode@outlook.com)
 
-**This file will be updated in the future with more information.**
+This file will be updated in the future with more information.
