@@ -8,6 +8,6 @@ Development is underway using **Microsoft Visual Studio Code** and **JetBrains P
 
 To access FindOne, go here: [https://findone.herokuapp.com/](https://findone.herokuapp.com/)
 
-This file will be updated in the future.
-
 You can contact me via email: [gotonode@outlook.com](gotonode@outlook.com)
+
+**This file will be updated in the future with more information.**
