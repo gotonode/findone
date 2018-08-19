@@ -18,7 +18,7 @@ psycopg2==2.7.5
 pycparser==2.18
 PyYAML==3.13
 requests==2.19.1
-scout-apm==1.2.2
+scout-apm==1.2.3
 six==1.11.0
 SQLAlchemy==1.2.10
 urllib3==1.23
