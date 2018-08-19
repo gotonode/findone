@@ -1,0 +1,46 @@
+{% macro custom2(name, header, text) -%}
+
+	<div class="modal fade" id="{{ name }}" tabindex="-1" role="dialog" aria-labelledby="feedback-modal-label"
+		 aria-hidden="true">
+		<form target="">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="feedback-modal-label">{{ header }}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Sulje">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<pre>{{ text }}</pre>
+						<p>Rekisteröitymällä ja/tai kirjautumalla sisään hyväksyt nämä ehdot.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal">Jatka</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+{%- endmacro %}
+
+{{ custom2(
+"terms-of-use-modal",
+"Käyttöehdot",
+"
+Tässä on käyttöehdot.
+qwdqwd
+2002
+
+Jatkamalla palvelun käyttöä ja/tai kirjautumalla/rekisteröitymällä palveluun, hyväksyn nämä ehdot.
+"
+) }}
+
+{{ custom2(
+"privacy-modal",
+"Tietosuojaehdot",
+"
+Käyttäjällä on oikeus pyytää tunnuksensa poistoa. Tunnuksen poisto onnistuu tiliasetusten kautta. Tunnuksen poiston yhteydessä järjestelmästä katoaa kaikki tunnukseen liittyvät tiedot.
+"
+) }}

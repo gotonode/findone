@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<div class="row">
+
+		<div class="col-3">
+			<ul class="list-group" id="conversations">
+
+			</ul>
+		</div>
+
+		<div class="col-9">
+			<div class="row mb-0">
+
+				<div class="col-6 text-left">
+					<p>Keskustelukumppani: <a href="#" id="">user</a>
+					</p>
+				</div>
+				<div class="col-6 text-right">
+					<small class="text-muted">Keskustelu aloitettu <span id="">datetime</span></small>
+				</div>
+			</div>
+
+			<hr />
+
+			<div id="conversation">
+				<!-- The conversation will be placed here. -->
+			</div>
+
+			<form>
+				{{ form.message.label(class="sr-only") }}
+				{{ form.message(class="form-control", required="required", rows="1") }}
+				{{ form.hidden_tag() }}
+				<div class="mt-3">
+					<button name="submit" type="submit" class="btn btn-outline-primary">Lähetä viesti</button>
+					<small class="text-muted ml-1">Paina <kbd>[<kbd>CTRL</kbd>] + [<kbd>ENTER</kbd>]</kbd>
+						lähettääksesi
+					</small>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		$(function () {
+			loadAllConversations();
+		});
+	</script>
+
+{% endblock %}

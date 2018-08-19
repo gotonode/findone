@@ -1,0 +1,107 @@
+<header>
+	<div class="">
+
+		<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-border-bottom {% if current_user.role == 'A' %}admin{% elif current_user.role == 'M' %}mod{% endif %}">
+			<a class="navbar-brand text-dark" href="{{ url_for('index') }}">FindOne</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu"
+					aria-controls="main-menu" aria-expanded="false" aria-label="Käytä navigointia">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="main-menu">
+				<ul class="navbar-nav mr-auto">
+
+					<li class="nav-item">
+						<a class="nav-link text-dark" href="{{ url_for('search') }}">
+							<i class="fas fa-fw fa-search"></i>&nbsp;Haku</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-dark" href="{{ url_for('tags_index') }}">
+							<i class="fas fa-fw fa-hashtag"></i>&nbsp;Merkkipilvi</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-dark" href="{{ url_for('profile_view_random') }}">
+							<i class="fas fa-fw fa-random"></i>&nbsp;Satunnainen</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-dard text-info" href="#" data-toggle="modal"
+						   data-target="#feedback-modal"
+						   role="button">
+							<i class="far fa-fw fa-comment"></i>&nbsp;Palaute</a>
+					</li>
+					{% if current_user.role == 'A' %}
+						<li class="nav-item">
+							<a class="nav-link text-dark" href="{{ url_for('admin') }}">
+								<i class="fas fa-fw fa-database"></i>&nbsp;Admin -paneeli</a>
+						</li>
+					{% elif current_user.role == 'M' %}
+						<li class="nav-item">
+							<a class="nav-link text-dark" href="{{ url_for('mod') }}">
+								<i class="fas fa-fw fa-user-check"></i>&nbsp;Mod -paneeli</a>
+						</li>
+					{% endif %}
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					{% if current_user.is_authenticated %}
+
+						{% if current_user.role != 'A' and current_user.role != 'M' %}
+							<li class="nav-item">
+								<a class="nav-link text-dark" href="{{ url_for('conversations_view') }}">
+									<div id="messages-no-new">
+										<i class="far fa-fw fa-envelope"></i>&nbsp;Viestit
+									</div>
+									<div id="messages-yes-new" class="d-none">
+										<i class="far fa-fw fa-envelope-open"></i>&nbsp;Viestit <span
+											class="badge badge-primary" id="message-count">1</span>
+										<span class="sr-only"> lukematonta viestiä</span>
+									</div>
+								</a>
+							</li>
+						{% endif %}
+
+					{% endif %}
+
+					<li class="nav-item dropdown">
+						{% if current_user.is_authenticated %}
+							<a class="nav-link dropdown-toggle text-dark" href="#" id="dropdown"
+							   data-toggle="dropdown" aria-haspopup="true"
+							   aria-expanded="false">Tervetuloa, <em>{{ current_user.handle }}</em></a>
+							<div class="dropdown-menu" aria-labelledby="dropdown">
+
+								{% if current_user.role != 'A' and current_user.role != 'M' %}
+									<a class="dropdown-item" href="{{ url_for('profile_view') }}">
+										<i class="fas fa-fw fa-address-card"></i>&nbsp;Oma profiili</a>
+									<a class="dropdown-item" href="{{ url_for('profile_edit') }}">
+										<i class="fas fa-fw fa-user-edit"></i>&nbsp;Muokkaa profiiliasi</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="{{ url_for('account_edit') }}">
+										<i class="fas fa-fw fa-user-cog"></i>&nbsp;Tiliasetukset</a>
+									<div class="dropdown-divider"></div>
+								{% endif %}
+
+								<a class="dropdown-item" href="{{ url_for('auth_logout') }}">
+									<i class="fas fa-fw fa-sign-out-alt"></i>&nbsp;Kirjaudu ulos</a>
+							</div>
+							</li>
+						{% else %}
+							<li class="nav-item">
+								<a class="nav-link text-dark" href="{{ url_for('auth_login_get') }}">
+									<i class="fas fa-sign-in-alt"></i>&nbsp;Kirjaudu sisään</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url_for('auth_register_get') }}" class="btn btn-outline-primary"
+								   role="button">
+									<i class="fas fa-fw fa-gem"></i>&nbsp;Rekisteröidy
+								</a>
+							</li>
+						{% endif %}
+				</ul>
+			</div>
+		</nav>
+
+	<script>
+		updateNavbar();
+	</script>
+	</div>
+</header>

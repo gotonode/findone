@@ -1,0 +1,87 @@
+﻿{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1>Rekisteröityminen</h1>
+	<p>Onko sinulla jo tunnus? <a href="{{ url_for("auth_login_get") }}">Voit kirjautua sisään tästä.</a></p>
+
+	<form method="POST" action="{{ url_for('auth_register_post') }}">
+		<div class="form-group row">
+			{{ form.handle.label(class="col-12 col-lg-2 col-form-label") }}
+			<div class="col-12 col-lg-10">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fas fa-fw fa-at"></i></span>
+					</div>
+					{{ form.handle(required="required", minlength="4", maxlength="12", class="form-control here") }}
+				</div>
+				<span id="handleHelpBlock" class="form-text text-muted">Muut käyttäjät tunnistavat sinut tästä (ei voi vaihtaa myöhemmin)</span>
+			</div>
+		</div>
+		<div class="form-group row">
+			{{ form.email.label(class="col-12 col-lg-2 col-form-label") }}
+			<div class="col-12 col-lg-10">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fas fa-fw fa-envelope-square"></i></span>
+					</div>
+					{{ form.email(required="required", class="form-control here") }}
+				</div>
+				<span id="emailHelpBlock" class="form-text text-muted">Käytetään kirjautumiseen ja unohtuneen salasanan palauttamiseen</span>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			{{ form.password.label(class="col-12 col-lg-2 col-form-label") }}
+			<div class="col-12 col-lg-10">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fas fa-fw fa-key current-password"></i></span>
+					</div>
+					{{ form.password(required="required", minlength="8", maxlength="32", class="form-control here") }}
+				</div>
+				<span id="passwordHelpBlock" class="form-text text-muted">Salasanasi on oltava 8-32 merkkiä</span>
+			</div>
+		</div>
+		<div class="form-group row">
+			{{ form.password2.label(class="col-12 col-lg-2 col-form-label") }}
+			<div class="col-12 col-lg-10">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fas fa-fw fa-key current-password"></i></span>
+					</div>
+					{{ form.password2(required="required", minlength="8", maxlength="32", class="form-control here") }}
+				</div>
+				<span id="password2HelpBlock" class="form-text text-muted">Anna valitsemasi salasana uudelleen</span>
+			</div>
+		</div>
+		<div class="form-group row">
+			{{ form.confirmation.label(class="offset-lg-2 col-10") }}
+			<div class="offset-lg-2 col-10">
+				<label class="custom-control custom-checkbox custom-control-inline">
+					{{ form.confirmation(required="required", class="custom-control-input") }}
+					<span class="custom-control-indicator"></span>
+					<span class="custom-control-label">Hyväksyn <a href="/terms#use" target="_blank">käyttö</a>- ja <a href="/terms#privacy" target="_blank">tietosuojaehdot</a></span>
+				</label>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="offset-lg-2 col-10">
+				<div class="g-recaptcha" data-sitekey="6LcgLloUAAAAADqpHnao_JQSv-QZYllD_YbFRnQi"></div>
+			</div>
+		</div>
+		{{ form.hidden_tag() }}
+
+		<div class="form-group row">
+			<div class="offset-lg-2 col-12 col-lg-10">
+				<p>Profiilisi pääset luomaan heti seuraavalla sivulla.</p>
+			</div>
+			<div class="offset-lg-2 col-12 col-lg-3">
+				<input type="submit" class="btn btn-block btn-success" onclick="validateRegister();"
+					   value="Rekisteröidy" />
+			</div>
+		</div>
+
+	</form>
+
+{% endblock %}

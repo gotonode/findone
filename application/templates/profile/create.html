@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1>Uuden profiilin luonti</h1>
+
+	<p>Pääset nyt luomaan ihan oman profiilisi</p>
+
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		<span><i class="fas fa-check"></i>&nbsp;Sinulle on nyt luotu tili ja sinut on kirjattu sisään. Seuraavaksi on profiilin luomisen vuoro.</span>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Sulje">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+
+	<script>
+		if (sessionStorage.getItem("account_created") !== null) {
+			sessionStorage.removeItem("account_created");
+		} else {
+			$(".alert").hide();
+		}
+	</script>
+
+	<form method="POST" action="{{ url_for('profile_create_post') }}">
+		<div class="form-group row">
+			{{ form.title.label(class="col-2 col-form-label") }}
+			<div class="col-10">
+				{{ form.title(required="required", oninput="countChars(this, 'titleChars');", minlength="8", maxlength="64", class="form-control here") }}
+				<p id="titleChars"><span class="text-muted">(ladataan)</span></p>
+			</div>
+		</div>
+		<div class="form-group row">
+			{{ form.content.label(class="col-2 col-form-label") }}
+			<div class="col-10">
+				{{ form.content(required="required", rows="5", oninput="countChars(this, 'contentChars');", minlength="32", maxlength="2048", class="form-control") }}
+				<p id="contentChars"><span class="text-muted">(ladataan)</span></p>
+			</div>
+		</div>
+		<div class="form-group row">
+			{{ form.birth_year.label(class="col-2 col-form-label") }}
+			<div class="col-10">
+				{{ form.birth_year(type="number", min="1900", max="2000", maxlength="4", class="form-control") }}
+			</div>
+		</div>
+		<div class="form-group row">
+			{{ form.gender.label(class="col-2") }}
+			<div class="col-10">
+				{% for subfield in form.gender %}
+					<label class="custom-control custom-radio custom-control-inline">
+						{{ subfield(required="required", class="custom-control-input") }}
+
+						<span class="custom-control-indicator"></span>
+						<span class="custom-control-label">{{ subfield.label }}</span>
+					</label>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="form-group row">
+			{{ form.city_id.label(class="col-2 col-form-label") }}
+			<div class="col-10">
+				{{ form.city_id(required="required", class="custom-select") }}
+			</div>
+		</div>
+		<div class="form-group row">
+			{{ form.seek.label(class="col-2 col-form-label") }}
+			<div class="col-10">
+				<div class="form-check form-check-inline">
+					{{ form.seek(required="required", class="list-inline custom-control custom-checkbox") }}
+</div>
+			</div>
+		</div>
+		{{ form.hidden_tag() }}
+		<div class="form-group row">
+			<div class="offset-2 col-10">
+				<input type="submit" class="btn btn-success" value="Luo profiilisi" />
+			</div>
+		</div>
+	</form>
+
+	<script>
+		document.onreadystatechange = function () {
+			if (document.readyState === "complete") {
+				countChars(document.getElementById("title"), 'titleChars');
+				countChars(document.getElementById("content"), 'contentChars');
+			}
+		}
+	</script>
+
+{% endblock %}

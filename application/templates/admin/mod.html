@@ -1,0 +1,21 @@
+﻿{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1>Mod -paneeli</h1>
+
+	<p>Tässä lista kaikista merkeistä. Klikkaa epäasiallista merkkiä poistaaksesi sen.</p>
+
+	<ul id="mod_tags">
+		{% for tag in tags %}
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<form method="POST" action="{{ url_for('mod_delete_tag') }}">
+					<input type="hidden" name="tag_id" value="{{ tag.id }}" />
+					<input type="submit" class="btn" value="{{ tag.name }}" />
+				</form>
+				<span class="badge {% if tag.count == 0 %}badge-secondary{% else %}badge-success{% endif %} badge-pill">{{ tag.count }}</span>
+			</li>
+		{% endfor %}
+	</ul>
+
+{% endblock %}

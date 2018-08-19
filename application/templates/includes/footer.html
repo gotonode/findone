@@ -1,0 +1,42 @@
+<footer class="page-footer sticky-bottom">
+
+	<div class="container">
+		<div class="float-right">
+			<a href="#" target="_top"><i class="fas fa-arrow-circle-up fa-3x to-top"></i></a>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<ul class="list-unstyled">
+					<li><a class="nav-link text valid" href="https://validator.w3.org/check?uri=referer"
+						   target="_blank"><i class="fab fa-fw fa-html5"></i>&nbsp;Valid HTML</a></li>
+
+					<li><a class="nav-link text valid" href="http://jigsaw.w3.org/css-validator/check/referer"
+						   target="_blank"><i class="fab fa-fw fa-css3-alt"></i>&nbsp;Valid CSS</a></li>
+				</ul>
+			</div>
+			<div class="col-md">
+				<ul class="list-unstyled">
+					<li class="nav-item">
+						<a class="nav-link text" href="https://github.com/gotonode/findone" target="_blank">
+							<i class="fab fa-fw fa-github"></i>&nbsp;Näytä GitHubissa</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text" href="#" id="contact" onclick="fillEmail();">
+							<i class="far fa-fw fa-comment"></i>&nbsp;Ota yhteyttä</a>
+					</li>
+
+					{% if debug %}
+						<li class="nav-item">
+							<a class="nav-link text" href="{{ url_for('project') }}">
+								<i class="fas fa-fw fa-server"></i>&nbsp;Projekti</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+
+		</div>
+		<div class="row w100">
+		</div>
+	</div>
+
+</footer>

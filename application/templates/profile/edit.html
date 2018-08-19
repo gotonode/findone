@@ -1,0 +1,246 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1>Muuta profiiliasi</h1>
+
+	<p>Täällä voit muuttaa profiiliasi. Pääset takaisin profiiliisi <a href="/profile">tästä</a>.</p>
+
+	<ul class="nav nav-tabs" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" href="#content" onclick="$('.save-alert').hide();" role="tab" data-toggle="tab">Otsikko
+				ja leipäteksti</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#details" role="tab" data-toggle="tab">Ikä, sukupuoli & kunta</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#seeking" role="tab" data-toggle="tab">Etsin</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#tags" role="tab" data-toggle="tab">Merkit</a>
+		</li>
+	</ul>
+
+	<br />
+	<div class="tab-content">
+
+		<div role="tabpanel" id="content" class="tab-pane fade show">
+
+			<h2>Profiilin otsikko ja leipätekstit</h2>
+
+			<div id="alert-for-content" class="save-alert"></div>
+
+			<form method="POST" action="{{ url_for('profile_edit_content_post') }}"
+				  onsubmit="sessionStorage.setItem('content', true.toString());">
+				<div class="form-group row">
+					{{ profile_text_form.title.label(class="col-12 col-lg-2 col-form-label") }}
+					<div class="col-12 col-lg-10">
+						{{ profile_text_form.title(required="required", oninput="countChars(this, 'titleChars');", minlength="8", maxlength="64", class="form-control here") }}
+						<p id="titleChars"><span class="text-muted">(ladataan)</span></p>
+					</div>
+				</div>
+				<div class="form-group row">
+					{{ profile_text_form.content.label(class="col-12 col-sm-12 col-lg-2 col-form-label") }}
+					<div class="col-12 col-lg-10">
+						{{ profile_text_form.content(required="required", rows="8", oninput="countChars(this, 'contentChars');", minlength="32", maxlength="2048", class="form-control") }}
+						<p id="contentChars"><span class="text-muted">(ladataan)</span></p>
+					</div>
+				</div>
+				{{ profile_text_form.hidden_tag() }}
+				<div class="form-group row">
+					<div class="offset-lg-2 col-12 col-lg-3">
+						<input type="submit" class="btn btn-block btn-success" value="Talleta muutokset" />
+					</div>
+				</div>
+			</form>
+
+		</div>
+
+		<div role="tabpanel" id="details" class="tab-pane fade show">
+
+			<h2>Ikä, sukupuoli & kunta</h2>
+
+			<div id="alert-for-details" class="save-alert"></div>
+
+			<form method="POST" action="{{ url_for('profile_edit_details_post') }}"
+				  onsubmit="sessionStorage.setItem('details', true.toString());">
+				<div class="form-group row">
+					{{ profile_info_form.birth_year.label(class="col-12 col-sm-12 col-lg-2 col-form-label") }}
+					<div class="col-10">
+						{{ profile_info_form.birth_year(type="number", min="1900", max="2018", maxlength="4", class="form-control") }}
+					</div>
+				</div>
+				<div class="form-group row">
+					{{ profile_info_form.gender.label(class="col-12 col-lg-2 col-form-label") }}
+					<div class="col-12 col-lg-10">
+						{% for subfield in profile_info_form.gender %}
+							<label class="custom-control custom-radio custom-control-inline">
+								{{ subfield(required="required", class="custom-control-input") }}
+								<span class="custom-control-indicator"></span>
+								<span class="custom-control-label">{{ subfield.label }}</span>
+							</label>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="form-group row">
+					{{ profile_info_form.city_id.label(class="col-12 col-sm-12 col-lg-2 col-form-label") }}
+					<div class="col-10">
+						{{ profile_info_form.city_id(required="required", class="custom-select") }}
+					</div>
+				</div>
+				{{ profile_info_form.hidden_tag() }}
+				<div class="form-group row">
+					<div class="offset-lg-2 col-12 col-lg-3">
+						<input type="submit" class="btn btn-block btn-success" value="Päivitä tiedot" />
+					</div>
+				</div>
+			</form>
+
+		</div>
+
+		<div role="tabpanel" id="seeking" class="tab-pane fade show">
+
+			<h2>Etsin tältä sivustolta</h2>
+
+			<div id="alert-for-seeking" class="save-alert"></div>
+
+			<form method="POST" action="{{ url_for('profile_tags_add') }}"
+				  onsubmit="sessionStorage.setItem('seeking', true.toString());">
+				<div class="form-group row">
+					{{ profile_seek_form.seek.label(class="col-2 col-form-label") }}
+					<div class="col-10">
+						<div class="form-check form-check-inline">
+							{{ profile_seek_form.seek(required="required", class="list-inline custom-control custom-checkbox") }}
+						</div>
+					</div>
+				</div>
+				{{ profile_seek_form.hidden_tag() }}
+				<div class="form-group row">
+					<div class="offset-lg-2 col-12 col-lg-3">
+						<input type="submit" class="btn btn-block btn-success" value="Päivitä tiedot" />
+					</div>
+				</div>
+			</form>
+
+		</div>
+
+		<div role="tabpanel" id="tags" class="tab-pane fade show">
+			{% if tags %}
+				<h2>Käytössä olevat merkit</h2>
+
+				<p>Klikkaa merkkiä poistaaksesi sen.</p>
+
+				<div class="row">
+					<div class="offset-2">
+						<div id="profile-tags">
+							<ul id="tags">
+								{% for tag in tags %}
+									<li class="tag removable" onclick="removeTag({{ tag.id }})">{{ tag.name }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			{% endif %}
+
+			<h2>Lisää uusi merkki</h2>
+
+			<p>Tässä voit lisätä uuden merkin profiiliisi.</p>
+
+			<div id="alert-for-tag"></div>
+
+			<form method="POST" action="{{ url_for('profile_tags_add') }}"
+				  onsubmit="sessionStorage.setItem('tag', true.toString());">
+				<div class="form-group row">
+					{{ tag_form.tag.label(class="col-2 col-form-label") }}
+					<div class="col-10">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fa fa-hashtag"></i></span>
+							</div>
+							{{ tag_form.tag(required="required", oninput="countChars(this, 'tagChars');", minlength="2", maxlength="20", class="form-control") }}
+						</div>
+						<p id="tagChars"></p>
+
+					</div>
+				</div>
+				{{ tag_form.hidden_tag() }}
+				<div class="form-group row">
+					<div class="offset-lg-2 col-12 col-lg-3">
+						<input type="submit" class="btn btn-block btn-success" value="Lisää merkki profiiliisi" />
+					</div>
+				</div>
+			</form>
+
+			<div class="row">
+				<div class="offset-2">
+
+					<p>Muutama huomautus merkeistä</p>
+					<ul>
+						<li>Kannattaa kirjoittaa erisnimet isolla, esim. <em>Kanada</em> tai <em>Coca-Cola</em></li>
+						<li>Yleisnimet sitten pienellä, esim. <em>kissat</em> tai <em>lautapelit</em></li>
+						<li>Merkit kirjoitetaan ilman lainausmerkkejä</li>
+						<li>Mikäli kaipaat inspiraatiota, voit <a href="{{ url_for('tags_index') }}">tarkastella
+							merkkipilveä</a>
+						</li>
+						<li>Epäasialliset merkit voidaan poistaa ylläpidon (moderators) toimesta</li>
+					</ul>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<script>
+
+		function createAlertBox(root) {
+
+			let div = document.createElement("div");
+			div.setAttribute("class", "alert alert-success alert-dismissible fade show");
+			div.setAttribute("role", "alert");
+
+			let span = document.createElement("span");
+
+			span.appendChild(document.createTextNode("Tietosi on tallennettu." + ' '));
+			div.appendChild(span);
+
+			let a = document.createElement("a");
+			a.setAttribute("href", "{{ url_for('profile_view') }}");
+			a.classList.add("alert-link");
+			a.appendChild(document.createTextNode("Takaisin omaan profiiliin?"));
+			div.appendChild(a);
+
+			let button = document.createElement("button");
+			button.setAttribute("type", "button");
+			button.classList.add("close");
+			button.setAttribute("data-dismiss", "alert");
+			button.setAttribute("aria-label", "Sulje");
+			div.appendChild(button);
+
+			let span2 = document.createElement("span");
+			span2.setAttribute("aria-hidden", "true");
+			span2.appendChild(document.createTextNode("X"));
+			button.appendChild(span2);
+
+			document.getElementById(root).outerHTML = div.outerHTML;
+		}
+
+		document.onreadystatechange = function () {
+
+			const array = ["content", "details", "seeking", "tag"];
+
+			for (let i = 0; i < array.length; i++) {
+				let s = array[i];
+				if (sessionStorage.getItem(s) !== null) {
+					createAlertBox("alert-for-" + s);
+					sessionStorage.removeItem(s);
+				}
+			}
+		};
+
+	</script>
+
+{% endblock %}

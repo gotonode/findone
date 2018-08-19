@@ -1,0 +1,3 @@
+Tietojen siirto ulkomaille
+
+Tietosi tallennetaan Herokun hallinnoimille palvelimille, joista osa sijaitsee Euroopassa, mutta jotkut saattavat sijaita Euroopan ulkopuolella. Myöskin varmuuskopiot saattavat sijaita useilla eri palvelimilla, useassa eri maassa.

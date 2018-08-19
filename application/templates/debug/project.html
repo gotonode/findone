@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1>Kehitystyökalut</h1>
+	<p style="color: red;">Huom! Vain kehitystä varten. Ei sisällytetä GitHub repositorioon!</p>
+
+	<h2>Nollaa tietokanta</h2>
+
+	<ul>
+		<li><a href="{{ url_for('reset', create_users=0) }}">Nollaa tietokanta</a></li>
+		<li><a href="{{ url_for('reset', create_users=1) }}">Nollaa tietokanta ja lisää testikäyttäjät (1 admin, 1 mod,
+			3 normal)</a></li>
+		<li><a href="{{ url_for('generate_messages') }}">Lisää viestijärjestelmän testidataa</a></li>
+	</ul>
+
+	<h2>Lisää käyttäjiä</h2>
+
+	<ul>
+		<li><a href="{{ url_for('debug_create_sample_users', count=1) }}">Luo 1 testitunnus (sis. profiilin)</a></li>
+		<li><a href="{{ url_for('debug_create_sample_users', count=5) }}">Luo 5 testitunnusta (sis. profiilit)</a></li>
+		<li><a href="{{ url_for('debug_create_sample_users', count=25) }}">Luo 25 testitunnusta (sis. profiilit)</a>
+		</li>
+	</ul>
+
+	<h2>Kirjaudu</h2>
+	<p>Valitse tunnus, jolla haluat kirjautua sisään välittömästi.</p>
+	<ul class="list-group">
+		{% for account in accounts %}
+
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="{{ url_for('auth_login_now', account_id=account.id) }}">{{ account.email }}
+					{% if account.role=='A' %}
+						(admin)
+					{% elif account.role=='M' %}
+						(mod)
+					{% endif %}
+				</a>
+			</li>
+
+		{% endfor %}
+	</ul>
+{% endblock %}

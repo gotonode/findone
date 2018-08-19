@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1>Merkkipilvi</h1>
+
+	<p>Merkkiä klikkaamalla näet kaikki käyttäjät, jotka ovat liittäneet tämän merkin itselleen.</p>
+
+	<ul id="tags">
+		{% for tag in tags %}
+			{% if tag.count != 0 %}
+				<li class="tag cloud" onclick="searchByTagId({{ tag.id }});">{{ tag.name }}
+					<span class="text-muted"> ({{ tag.count }})</span>
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+
+	<hr />
+
+	<form onsubmit="searchByTagId(document.getElementById('tag_id').value); return false;">
+		{{ form.tag_id.label }}
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-*">{{ form.tag_id(required="required", class="custom-select") }}</div>
+				<div class="col-sm-1"><input type="submit" class="btn btn-light" value="Löydä" /></div>
+			</div>
+		</div>
+	</form>
+
+{% endblock %}

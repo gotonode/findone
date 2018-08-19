@@ -1,0 +1,45 @@
+﻿{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1>Sisäänkirjautuminen</h1>
+	<p>Ei vielä tunnusta? <a href="{{ url_for("auth_register_get") }}">Voit rekisteröityä tästä.</a></p>
+
+	<form method="POST" action="{{ url_for('auth_login_post') }}">
+
+		<div class="form-group row">
+			{{ form.email.label(class="col-12 col-lg-2 col-form-label") }}
+			<div class="col-12 col-lg-10">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fas fa-fw fa-envelope-square"></i></span>
+					</div>
+					{{ form.email(required="required", class="form-control here") }}
+				</div>
+			</div>
+		</div>
+		<div class="form-group row">
+			{{ form.password.label(class="col-12 col-lg-2 col-form-label") }}
+			<div class="col-12 col-lg-10">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text"><i class="fas fa-fw fa-key current-password"></i></span>
+					</div>
+					{{ form.password(required="required", minlength="8", maxlength="32", class="form-control here") }}
+				</div>
+			</div>
+		</div>
+		{{ form.hidden_tag() }}
+		<div class="form-group row">
+			<div class="offset-lg-2 col-12 col-lg-3">
+				<input type="submit" class="btn btn-block btn-success" value="Kirjaudu sisään" />
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="offset-lg-2 col-12 col-lg-10">
+				<p><a href="#">Salasana unohtunut?</a></p>
+			</div>
+		</div>
+	</form>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	{% macro card(img, alt, heading, text, img_first) -%}
+		<div class="row align-items-center mb-3">
+			<div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-{% if img_first %}end{% else %}start{% endif %} order-sm-first order-md-{% if img_first %}first{% else %}last{% endif %}">
+				<img src="/static/img/{{ img }}" width="400" height="400" alt="{{ alt }}" />
+			</div>
+			<div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-{% if img_first %}start{% else %}end{% endif %}">
+				<p style="text-align: {% if img_first %}left{% else %}right{% endif %};"><span class="feature-heading">{{ heading }}</span>
+					<br />
+					{{ text }}
+				</p>
+			</div>
+		</div>
+	{%- endmacro %}
+
+	<small class="d-block text-center mb-2">Saat <strong>täysin vapaasti</strong> testata tätä palvelua. Tietokanta nollataan aika-ajoin.
+		Kaikki palaute on erittäin tervetullutta. :-)
+	</small>
+
+	<section class="jumbotron mb-3">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-6 jumbotron-box">
+					<h1 class="jumbotron-heading">FindOne</h1>
+					<p class="lead w-50">Löydä <em>vertaistukea</em>, <em>ystäviä</em>, <em>kirjekavereita</em> tai
+						vaikka <em>kumppanin</em> ja kaikkea näiden väliltä</p>
+					{% if not current_user.is_authenticated %}
+						<div>
+							<a href="{{ url_for('auth_register_get') }}" class="btn btn-primary" role="button">
+								Rekisteröidy ilmaiseksi
+							</a>
+						</div>
+					{% endif %}
+				</div>
+				<div class="d-none d-md-block">
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{{ card("tags.jpeg", "Merkkejä", "Löydä seuraa helposti merkkien avulla", "Saat itse päättää mitä merkkejä haluat käyttää (niiden käyttö on valinnaista). Muut käyttäjät voivat
+				sitten löytää sinut merkkien
+				perusteella. Kiinnostaisiko löytää vaikka muita ihmisiä, jotka kamppailevat samanlaisten asioiden kanssa elämässään
+				kuin sinä? Tai löytää samoista TV -sarjoista kiinnostuneita henkilöitä?", True) }}
+
+	{{ card("country.jpeg", "Suomen kartta", "Ihmisiä ympäri Suomea", "Suurin osa sivuston käyttäjistä on
+				suomalaisia.", False) }}
+
+	{{ card("targets.jpeg", "Merkkejä", "Seuran löytäminen on helppoa", "Etsitkö vertaistukea, ystävää, kumppania, kirjekaveria tai jotain muuta? Tämän palvelun kautta oikeanlaisen seuran löytäminen on helppoa ja mukavaa.", True) }}
+
+	{{ card("health.jpeg", "Mielenterveyskuntoutuja", "Kuntoutujalta kaikille", "Palvelun kehittäjä on
+				mielenterveyskuntoutuja. Palvelu on alunperin suunniteltu juuri kuntoutujien ja yksinäisten ihmisten
+				kohtaamispaikaksi, mutta kaikki ovat tietysti tervetulleita.", False) }}
+
+	<div class="row align-items-center">
+		<div class="col-12 text-center">
+			{% if not current_user.is_authenticated %}
+				<p>Oletko vakuuttunut? <a href="{{ url_for('auth_register_get') }}">Liity iloiseen joukkoomme ja
+					rekisteröidy tästä!</a></p>
+			{% else %}
+				<p>Kiitos että olet rekisteröitynyt jäsen. Haluaisitko jakaa kokemuksen kavereillesi? Jakaminen
+					sosiaaliseen mediaan on helppoa.</p>
+
+			{% endif %}
+		</div>
+	</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1>Käyttäjähaku</h1>
+
+	<p>Voit helposti etsiä oikeanlaista seuraa. Etsi esimerkiksi iän, sukupuolen tai käytössä olevan merkin perusteella.</p>
+
+	<div id="search-box" class="mb-3">
+
+		<form method="GET" target="search_with_tag">
+
+			<div class="container">
+
+				<div class="d-inline form-group col-6 col-md-3">
+
+					{{ form.min_age.label(class="sr-only") }}
+					{{ form.min_age(type="number", min="18", max="100", placeholder="18", class="form-control d-inline-block") }}
+					<span class="align-content-center">-</span>
+					{{ form.max_age.label(class="sr-only") }}
+					{{ form.max_age(type="number", min="18", max="100", placeholder="100", class="form-control d-inline-block") }}
+
+				</div>
+				<span class="text-muted d-none d-md-inline">|</span>
+
+				<div class="d-inline form-group col-6 col-md-3">
+					{{ form.gender.label(class="sr-only") }}
+					{% for subfield in form.gender %}
+						<label class="custom-control custom-radio custom-control-inline d-inline-block">
+							{{ subfield(required="required", class="custom-control-input") }}
+							<span class="custom-control-indicator"></span>
+							<span class="custom-control-label">{{ subfield.label }}</span>
+						</label>
+					{% endfor %}
+				</div>
+				<span class="text-muted d-none d-md-inline">|</span>
+
+				<div class="d-inline form-group col-6 col-md-3">
+					{{ form.city_id.label(class="sr-only") }}
+					{{ form.city_id(required="required", class="custom-select d-inline-block") }}
+				</div>
+				<span class="text-muted d-none d-md-inline">|</span>
+				<div class="d-inline form-group col-6 col-md-3">
+					<a type="submit" class="btn btn-outline-primary" role="button"
+					   onclick="$(this).closest('form').submit();"><i
+							class="fas fa-search"></i>&nbsp;Löydä</a>
+				</div>
+
+				<div class="d-block w-100">
+					{{ form.tag.label() }}
+					{{ form.tag(type="text", class="form-control custom-control-inline d-inline-block") }}
+				</div>
+
+			</div>
+
+			{{ form.hidden_tag() }}
+
+		</form>
+
+	</div>
+
+	{% include("includes/cards.html") %}
+
+	<nav aria-label="Käyttäjähaun navigointi">
+		<ul class="pagination justify-content-center mt-4">
+			<li class="page-item disabled">
+				<a class="page-link" href="#" tabindex="-1">Edellinen</a>
+			</li>
+			<li class="page-item disabled"><a class="page-link" href="#">1</a></li>
+			<li class="page-item disabled">
+				<a class="page-link" href="#">Seuraava</a>
+			</li>
+		</ul>
+	</nav>
+
+{% endblock %}

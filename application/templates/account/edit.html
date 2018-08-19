@@ -1,0 +1,193 @@
+﻿{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1>Tiliasetukset</h1>
+
+	<p>Täällä voit muuttaa tilisi tietoja.</p>
+
+	<ul class="nav nav-tabs" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" href="#home_tab" role="tab" data-toggle="tab">Yleinen</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#email_tab" role="tab" data-toggle="tab">Sähköpostiosoite</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#password_tab" role="tab" data-toggle="tab">Salasana</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#delete_tab" role="tab" data-toggle="tab">Poista tilini</a>
+		</li>
+	</ul>
+	<br />
+
+	<div class="tab-content">
+
+		<div role="tabpanel" id="home_tab" class="tab-pane fade show active">
+			<h2>Tilinhallinta</h2>
+
+			<p>Valitse ylhäältä, mitä tietoja tilistäsi haluat muuttaa.</p>
+
+			{% if last_login %}
+
+				<h3>Edellinen kirjautuminen</h3>
+
+				<p>Kirjauduit viimeksi sisään <strong>{{ last_login.date_created }}</strong> osoitteesta
+					<strong>{{ last_login.address }}</strong>.</p>
+
+			{% endif %}
+		</div>
+
+		<div role="tabpanel" id="email_tab" class="tab-pane fade">
+
+			<h2>Muuta sähköpostiosoitteesi</h2>
+			<p>Uuteen osoitteeseen lähetetään varmistusviesti (ei vielä toiminnassa).</p>
+			<p>Nykyinen sähköpostiosoitteesi: <span class="monospaced">{{ current_user.email }}</span></p>
+
+			<form method="POST" action="{{ url_for('account_edit_email') }}">
+				<div class="form-group row">
+					{{ email_form.email.label(class="col-12 col-lg-2 col-form-label") }}
+					<div class="col-12 col-lg-10">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-fw fa-envelope-square"></i></span>
+							</div>
+							{{ email_form.email(required="required", class="form-control") }}
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					{{ email_form.password.label(class="col-12 col-lg-2 col-form-label") }}
+					<div class="col-12 col-lg-10">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-fw fa-key current-password"></i></span>
+							</div>
+							{{ email_form.password(required="required", minlength="8", maxlength="32", class="form-control") }}
+						</div>
+					</div>
+				</div>
+				{{ email_form.hidden_tag() }}
+				<div class="form-group row">
+					<div class="offset-lg-2 col-12 col-lg-3">
+						<input type="submit" class="btn btn-block btn-success" value="Vaihda sähköpostiosoite" />
+					</div>
+				</div>
+			</form>
+
+		</div>
+
+		<div role="tabpanel" id="password_tab" class="tab-pane fade">
+
+			<h2>Muuta salasanasi</h2>
+			<p>On suositeltavaa, että et käytä useilla eri sivustolla samaa salasanaa.</p>
+
+			<form method="POST" action="{{ url_for('account_edit_password') }}">
+
+				<div class="form-group row">
+					{{ password_form.new_password.label(class="col-12 col-lg-2 col-form-label") }}
+					<div class="col-12 col-lg-10">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-fw fa-key new-password"></i></span>
+							</div>
+							{{ password_form.new_password(required="required", minlength="8", maxlength="32", class="form-control") }}
+						</div>
+						<span id="passwordHelpBlock" class="form-text text-muted">8-32 merkkiä</span>
+					</div>
+				</div>
+				<div class="form-group row">
+					{{ password_form.new_password2.label(class="col-12 col-lg-2 col-form-label", value="Uusi salasana (uudestaan") }}
+					<div class="col-12 col-lg-10">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-fw fa-key new-password"></i></span>
+							</div>
+							{{ password_form.new_password2(required="required", minlength="8", maxlength="32", class="form-control") }}
+						</div>
+						<span id="passwordHelpBlock" class="form-text text-muted">Anna uusi salasanasi uudelleen</span>
+					</div>
+				</div>
+				<div class="form-group row">
+					{{ password_form.current_password.label(class="col-12 col-lg-2 col-form-label", value="Nykyinen salasana") }}
+					<div class="col-12 col-lg-10">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-fw fa-key current-password"></i></span>
+							</div>
+							{{ password_form.current_password(required="required", minlength="8", maxlength="32", class="form-control") }}
+						</div>
+						<span id="passwordHelpBlock"
+							  class="form-text text-muted">Vahvista antamalla nykyinen salasanasi</span>
+					</div>
+				</div>
+				{{ password_form.hidden_tag() }}
+				<div class="form-group row">
+					<div class="offset-lg-2 col-12 col-lg-3">
+						<input type="submit" class="btn btn-block btn-success" value="Vaihda salasana" />
+					</div>
+				</div>
+			</form>
+
+		</div>
+
+		<div role="tabpanel" id="delete_tab" class="tab-pane fade">
+
+			<h2>Poista käyttäjätilisi</h2>
+
+			<p>Vahvista kirjoittamalla käyttäjänimesi ja salasanasi.</p>
+
+			<p>Käyttäjänimesi: <span class="monospaced">{{ current_user.handle }}</span></p>
+
+			<form method="POST" action="{{ url_for('account_edit_delete') }}">
+				<div class="form-group row">
+					{{ delete_form.handle.label(class="col-12 col-lg-2 col-form-label") }}
+					<div class="col-12 col-lg-10">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-fw fa-at"></i></span>
+							</div>
+							{{ delete_form.handle(required="required", class="form-control") }}
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					{{ delete_form.delete_password.label(class="col-12 col-lg-2 col-form-label") }}
+					<div class="col-12 col-lg-10">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-fw fa-key current-password"></i></span>
+							</div>
+							{{ delete_form.delete_password(required="required", minlength="8", maxlength="32", class="form-control") }}
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					{{ delete_form.confirmation.label(class="col-12 col-lg-2 col-form-label") }}
+					<div class="col-12 col-lg-10">
+						<label class="custom-control custom-checkbox custom-control-inline">
+							{{ delete_form.confirmation(required="required", class="custom-control-input") }}
+							<span class="custom-control-indicator"></span>
+							<span class="custom-control-label">Haluan poistaa tilini pysyvästi</span>
+						</label>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="offset-lg-2 col-12 col-lg-10">
+						<span id="delete-disclaimer"><strong>Varoitus!</strong>&nbsp;Tätä toimintoa ei voi perua.</span>
+					</div>
+				</div>
+				{{ delete_form.hidden_tag() }}
+				<div class="form-group row">
+					<div class="offset-lg-2 col-12 col-lg-3">
+						<input type="submit" class="btn btn-block btn-danger" value="Poista tilini" />
+					</div>
+				</div>
+			</form>
+
+		</div>
+
+	</div>
+
+{% endblock %}

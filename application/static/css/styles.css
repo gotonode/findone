@@ -1,0 +1,304 @@
+
+html {
+	overflow-y: scroll;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	padding-bottom: 20px;
+	background-color: #F7FAFA; /* Make this into a static variable. */
+}
+
+.navbar {
+	margin-bottom: 20px;
+}
+
+tr.loginSuccessful {
+	color: darkgreen;
+}
+
+tr.loginFailed {
+	color: darkred;
+}
+
+#delete-disclaimer {
+	color: darkred;
+}
+
+.navbar-brand, .jumbotron-heading {
+	font-family: "Abel", sans-serif;
+	letter-spacing: 3px;
+}
+
+h1 {
+	font-size: 24px;
+}
+
+h2 {
+	font-size: 20px;
+}
+
+h3, h4, h5, h6 {
+	font-size: 18px;
+}
+
+p#profile-title {
+	font-weight: bold;
+}
+
+ul#tags { /* The list of all associated tags. */
+	margin: 0;
+	padding: 0;
+}
+
+li.tag { /* For each tag. */
+	margin-right: 5px;
+	margin-bottom: 8px;
+	list-style: none;
+	display: inline-block;
+	border: 1px solid lightgray;
+	padding: 5px 7px 5px 7px;
+	background-color: ghostwhite;
+	font-family: 'PT Sans', sans-serif;
+	letter-spacing: 1px;
+	font-size: 14px;
+	cursor: default;
+}
+
+#profile-tags ul, #profile-tags li {
+	cursor: default;
+}
+
+li.removable, li.cloud {
+	cursor: pointer;
+}
+
+li.removable:hover {
+	color: darkred;
+	text-decoration: line-through;
+}
+
+input[type="text"], textarea {
+	box-sizing: border-box;
+}
+
+.navbar {
+	background: linear-gradient(150deg, white 0%, ghostwhite 50%, aliceblue 75%) !important;
+}
+
+.navbar-border-full {
+	border: 1px solid lightgray;
+}
+
+.navbar-border-bottom {
+	border-bottom: 1px solid lightgray;
+}
+
+.jumbotron {
+	padding-top: 6rem;
+	padding-bottom: 6rem;
+	margin-bottom: 0;
+	background: #F7FAFA url('/static/img/jumbotron.jpeg') no-repeat center; /* Use a static variable background color here. */
+	background-size: cover;
+}
+
+.jumbotron-box {
+	background-color: rgba(71, 106, 140, 0.4);
+	padding: 1em;
+}
+
+.jumbotron-heading {
+	font-weight: 400;
+}
+
+.jumbotron h1, .jumbotron p {
+	color: white;
+}
+
+.nav-link {
+	color: black;
+}
+
+#wrap {
+	min-height: 90%;
+}
+
+main {
+	overflow: auto;
+	padding-bottom: 150px;
+	margin-bottom: 20px;
+}
+
+footer {
+	font-family: monospace, monospace;
+	border-top: 1px solid gray;
+	padding-top: 20px;
+	position: relative;
+	margin-top: -150px;
+	height: 150px;
+	clear: both;
+}
+
+a.valid {
+	color: #005500;
+}
+
+a.valid:hover {
+	color: #008500;
+}
+
+p#profile-content {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.monospaced {
+	font-weight: bold;
+}
+
+li.error {
+	border: 1px solid maroon;
+	padding: 10px;
+	margin-bottom: 10px;
+	background: linear-gradient(150deg, #FFEEEE, #FFCCCC);
+}
+
+ul#mod_tags {
+	columns: 3;
+	-webkit-columns: 3;
+	-moz-columns: 3;
+}
+
+ul#mod_tags input:hover {
+	text-decoration: line-through;
+}
+
+ul#mod_tags li:hover {
+	background-color: #FFEEEE;
+}
+
+i.to-top {
+	color: lightgray;
+}
+
+i.to-top:hover {
+	color: darkgray;
+}
+
+nav.mod {
+	border: 1px dashed darkmagenta;
+}
+
+nav.admin {
+	border: 1px dashed darkred;
+}
+
+td.third {
+	width: 150px;
+}
+
+span#handle {
+	font-weight: bold;
+}
+
+div#profile-tags {
+	box-sizing: border-box;
+}
+
+span#ownProfile {
+	color: darkblue;
+}
+
+i#gender-male {
+	color: cornflowerblue;
+}
+
+i#gender-female {
+	color: lightcoral;
+}
+
+i#gender-none {
+	color: darkgray;
+}
+
+span.feature-heading {
+	font-size: 1.6rem;
+}
+
+i.current-password {
+	color: goldenrod;
+}
+
+.card-text {
+	word-break: break-all;
+}
+
+.conversation {
+	cursor: pointer;
+}
+
+.message {
+	display: inline-block;
+	border: 1px solid lightgray;
+	background-color: white;
+	padding: 4px 8px 4px 8px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	font-size: 1.05rem;
+	cursor: default;
+	font-family: "Noto Sans", sans-serif;
+}
+
+kbd {
+	background-color: lightsteelblue !important;
+	color: dimgray;
+}
+
+input#min_age, input#max_age {
+	width: 6rem;
+}
+
+select#city_id {
+	width: 25%;
+}
+
+div#search-box {
+	width: 100%;
+	border: 1px solid lightblue;
+	border-radius: 2px;
+	padding: 6px;
+	background-color: white;
+}
+
+.badge {
+	cursor: default !important;
+}
+
+.alert-link {
+	/*font-weight: normal !important;*/
+}
+
+.user-control:hover {
+	color: darkred;
+}
+
+.profile-card {
+	cursor: pointer;
+	min-height: 8rem;
+}
+
+.profile-card:hover {
+	border-color: green;
+}
+
+.profile-card:hover .card-title {
+	color: green;
+}
+
+.card-title {
+	font-weight: 600;
+}
+

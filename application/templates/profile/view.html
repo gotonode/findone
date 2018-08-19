@@ -1,0 +1,194 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-lg-2 text-center col-12 col-sm-4">
+			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+				<ol class="carousel-indicators">
+					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+				</ol>
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<i class="fas fa-id-badge fa-9x"
+						   id="{% if profile.gender == 'M' %}gender-male{% elif profile.gender == 'F' %}gender-female{% else %}gender-none{% endif %}">
+						</i>
+					</div>
+					<div class="carousel-item">
+						<i class="fas fa-id-badge fa-9x"
+						   id="{% if profile.gender == 'M' %}gender-male{% elif profile.gender == 'F' %}gender-female{% else %}gender-none{% endif %}">
+						</i>
+					</div>
+					<div class="carousel-item">
+						<i class="fas fa-id-badge fa-9x"
+						   id="{% if profile.gender == 'M' %}gender-male{% elif profile.gender == 'F' %}gender-female{% else %}gender-none{% endif %}">
+						</i>
+					</div>
+				</div>
+				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			</div>
+			<hr class="d-block d-sm-none" />
+		</div>
+		<div class="col-lg-7 col-12 col-sm-8">
+			<p>
+				<span id="handle">{{ account.handle }}</span>
+				{% if own_profile %}
+					<small class="text-muted">&nbsp;(oma profiili)</small>
+				{% endif %}
+			</p>
+			<table>
+				<tr>
+					<td class="third">Syntymävuosi:</td>
+					<td>
+						{% if profile.birth_year %}
+							{{ profile.birth_year }} (~{{ profile.age }} vuotta)
+						{% else %}
+							(ei annettu)
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td class="third">Sukupuoli:</td>
+					<td>
+						{% if profile.gender == 'M' %}
+							mies
+						{% elif profile.gender == 'F' %}
+							nainen
+						{% else %}
+							(ei annettu)
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td class="third">Kunta:</td>
+					<td>
+						{% if profile.city %}
+							{{ profile.city }}
+						{% else %}
+							(ei annettu)
+						{% endif %}
+					</td>
+				</tr>
+
+				<tr>
+					<td class="third">Etsin täältä:</td>
+					<td>
+						{% if seek %}
+							{{ seek }}
+						{% else %}
+							(ei annettu)
+						{% endif %}
+					</td>
+				</tr>
+			</table>
+
+			{% if not own_profile %}
+
+				<div class="row">
+					<div class="col-12 col-lg-6 text-left mt-4 pl-0 pr-0">
+						<button class="btn btn-block btn-outline-success" data-toggle="modal"
+								data-target="#message-modal">
+							<i class="far fa-edit"></i>&nbsp;Lähetä viesti
+						</button>
+					</div>
+					<div class="col-12 col-lg-3 text-left mt-4 pl-0 pr-0 d-inline align-middle">
+						<form id="favorite_form" target="{{ url_for('add_favorite') }}" method="POST">
+							<a href="#" onclick="$('#favorite_form').submit();" class="ml-1"><i
+									class="far fa-heart"></i>&nbsp;Lisää suosikkeihin</a>
+						</form>
+					</div>
+				</div>
+
+			{% endif %}
+
+		</div>
+		{% if not own_profile %}
+			<div class="col-12 col-lg-3">
+				<ul class="nav justify-content-end">
+					<li class="nav-item">
+						<a class="nav-link user-control" href="#">
+							<i class="far fa-flag"></i>&nbsp;Ilmianna
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link user-control" href="#">
+							<i class="fas fa-ban"></i>&nbsp;Estä
+						</a>
+					</li>
+				</ul>
+
+			</div>
+
+		{% endif %}
+	</div>
+	<hr />
+	<div class="row">
+		<div class="col-12 col-lg-8 order-lg-1 order-2">
+			{% if tags %}
+				<hr class="d-block d-lg-none" />
+			{% endif %}
+			<div id="profile-text">
+				<p id="profile-title">{{ profile.title }}</p>
+				<p id="profile-content">{{ profile.content }}</p>
+			</div>
+		</div>
+		<div class="col-12 col-lg-4 text-center text-lg-right order-1 order-lg-2">
+			{% if tags %}
+				<div id="profile-tags">
+					<ul id="tags">
+						{% for tag in tags %}
+							<li class="tag">{{ tag.name }}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% if not own_profile %}
+
+		<div class="modal fade" id="message-modal" tabindex="-1" role="dialog" aria-labelledby="message-modal-label"
+			 aria-hidden="true">
+			<form method="POST" action="{{ url_for('message_send') }}">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="message-modal-label">Lähetä viesti</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Sulje">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p>Käyttäjälle: <strong>{{ account.handle }}</strong></p>
+							<div class="form-group">
+								{{ form.message.label(class="col-form-label") }}:
+								{{ form.message(class="form-control", rows="4", required="required", minlength="1") }}
+							</div>
+							<p>Vahvista että olet ihminen (tällä vältetään roskapostitusta).</p>
+							<div class="form-group">
+								<div class="g-recaptcha" data-sitekey="6LcgLloUAAAAADqpHnao_JQSv-QZYllD_YbFRnQi"></div>
+							</div>
+							<input type="hidden" name="target_id" value="{{ profile.id }}" />
+							{{ form.hidden_tag() }}
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-success">Lähetä viesti</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Sulje</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	{% endif %}
+
+{% endblock %}

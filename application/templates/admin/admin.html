@@ -1,0 +1,71 @@
+﻿{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1>Ylläpitopaneeli</h1>
+
+	<p>Tämä on ylläpitopaneeli, jota käyttää ylläpitäjät ("administrators").</p>
+
+	<ul class="nav nav-tabs" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" href="#logins" role="tab" data-toggle="tab">Kirjautumiset</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#noprofile" role="tab" data-toggle="tab">Tilit ilman profiileita</a>
+		</li>
+	</ul>
+
+	<br />
+	<div class="tab-content">
+
+		<div role="tabpanel" id="logins" class="tab-pane fade show active">
+
+			<h2>Kirjautumiset</h2>
+
+			<p>Onnistuneet kirjautumiset näytetään vihreällä, ja mukana on kirjautuneen tunnuksen ID. Epäonnistuneet
+				kirjautumiset näytetään punaisella, ja mukana on kirjautumisyrityksessä käytetty sähköpostiosoite.</p>
+
+			<div class="container">
+				<div class="table-responsive">
+
+					<table class="table table-striped table-hover">
+						<thead>
+						<tr>
+							<th>Aikaleima</th>
+							<th>Acc. ID</th>
+							<th>Email</th>
+							<th>IP (v4/v6)</th>
+							<th>User-Agent</th>
+						</tr>
+						</thead>
+						{% for login in logins %}
+							<tr class="{% if login.successful %}table-success{% else %}table-danger{% endif %}">
+								<td>{{ login.date_created }}</td>
+								<td>{{ login.account_id }}</td>
+								<td>{{ login.email }}</td>
+								<td>{{ login.address }}</td>
+								<td>{{ login.user_agent }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div role="tabpanel" id="noprofile" class="tab-pane fade">
+
+			<h2>Tilit ilman profiileita</h2>
+
+			<p>Näillä tileillä ei ole profiilia. Tilit voivat olla esim. ylläpitoa varten.</p>
+
+			<ul class="list-group">
+				{% for account in accounts %}
+					<li class="list-group-item">
+						{{ account.handle }} ({{ account.email }})
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+{% endblock %}

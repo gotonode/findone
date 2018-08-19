@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1 id="terms">Käyttöehdot</h1>
+	<p>Sivuston käyttöä koskevat käyttöehdot</p>
+
+	<textarea rows="10" style="box-sizing: border-box; width: 100%;" readonly>{% include "terms/use.txt" %}</textarea>
+
+	<h1 id="privacy" class="mt-2">Tietosuojaehdot</h1>
+	<p>Sivuston käyttöä koskevat tietosuoja- ja turvaehdot</p>
+
+	<textarea rows="10" style="box-sizing: border-box; width: 100%;"
+			  readonly>{% include "terms/privacy.txt" %}</textarea>
+
+	<hr />
+
+	<p>Viimeksi tarkistettu/päivitetty: 2018-08-16 22:55</p>
+
+{% endblock %}

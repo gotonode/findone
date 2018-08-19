@@ -1,0 +1,60 @@
+<!-- SECTION: Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119545831-1"></script>
+
+<script>
+	window.dataLayer = window.dataLayer || [];
+
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+
+	gtag('js', new Date());
+
+	gtag('config', 'UA-119545831-1');
+</script>
+<!-- ENDSECTION -->
+
+<!-- SECTION: Keen IO -->
+<script>
+	(function (name, path, ctx) {
+		var latest, prev = name !== 'Keen' && window.Keen ? window.Keen : false;
+		ctx[name] = ctx[name] || {
+			ready: function (fn) {
+				var h = document.getElementsByTagName('head')[0], s = document.createElement('script'), w = window,
+					loaded;
+				s.onload = s.onerror = s.onreadystatechange = function () {
+					if ((s.readyState && !(/^c|loade/.test(s.readyState))) || loaded) {
+						return
+					}
+					s.onload = s.onreadystatechange = null;
+					loaded = 1;
+					latest = w.Keen;
+					if (prev) {
+						w.Keen = prev
+					} else {
+						try {
+							delete w.Keen
+						} catch (e) {
+							w.Keen = void 0
+						}
+					}
+					ctx[name] = latest;
+					ctx[name].ready(fn)
+				};
+				s.async = 1;
+				s.src = path;
+				h.parentNode.insertBefore(s, h)
+			}
+		}
+	})('KeenAsync', 'https://d26b395fwzu5fz.cloudfront.net/keen-tracking-1.4.2.min.js', this);
+
+	KeenAsync.ready(function () {
+		var client = new KeenAsync({
+			projectId: '5b001e56c9e77c00019f96df',
+			writeKey: '0975DE329C96CFEB9A5CCB0252D8D9E863E664DE74922513204CB7ADBAF11F9ECF90DEB010ED78288072EF763D74A4E885AACCF0A5CC9D6E3FF67DF4EFA9289E7F7AD4E06339319A2660B5D906BD5EFAA491FD89C5FFF2FC381EB92398AC09DD'
+		});
+
+		client.initAutoTracking();
+	});
+</script>
+<!-- ENDSECTION -->

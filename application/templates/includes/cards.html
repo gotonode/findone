@@ -1,0 +1,14 @@
+<div class="card-columns">
+	{% for user in users %}
+		<div class="card profile-card" onclick="window.location = '{{ url_for("profile_view_with_handle", handle=user.handle) }}';">
+			<img class="card-img-top" src="" alt="">
+			<div class="card-body">
+				<p class="card-text float-right"><small class="text-muted">{{ user.handle }}</small></p>
+				<p class="card-title">{{ user.title }}</p>
+				<p class="card-text">
+					{{ user.details }}
+				</p>
+			</div>
+		</div>
+	{% endfor %}
+</div>

@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+	<h1>Se on virhe</h1>
+
+	{% if errors|length > 1 %}
+		<p>Seuraavat virheet tapahtuivat:</p>
+	{% else %}
+		<p>Seuraava virhe tapahtui:</p>
+	{% endif %}
+
+	<ul>
+		{% for error in errors %}
+			{% if error|length > 1 %}
+				<li class="error">{{ error }}</li>
+			{% else %}
+				<li class="error">{{ error[0] }}</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+
+	<p>Voit <a href="#" onclick="window.history.back();">palata takaisin</a> ja yrittää uudelleen, tai siirtyä <a href="{{ url_for('index') }}">etusivulle</a>.</p>
+
+	<small>Mikäli virhe toistuu jatkuvasti, voit lähettää meille palautetta. Kaikki palaute luetaan ja otetaan huomioon. Kerrothan viestissäsi mikä virhe tapahtui ja mitä teit ennen sen tapahtumista.</small>
+
+{% endblock %}
