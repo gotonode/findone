@@ -2,12 +2,26 @@ import os
 from enum import Enum
 from functools import wraps
 
-from flask import Flask
+from flask import Flask, got_request_exception
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_url_path="/static")
+
+import rollbar
+import rollbar.contrib.flask
+
+
+@app.before_first_request
+def init_rollbar():
+    rollbar.init(
+        "4696f6afdcbc41399fd694550535b780",
+        "development",
+        root=os.path.dirname(os.path.realpath(__file__)),
+        allow_logging_basic_config=False)
+
+got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
 
 if os.environ.get("HEROKU"):
 	# We're running on Heroku.

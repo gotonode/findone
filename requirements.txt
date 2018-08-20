@@ -1,4 +1,5 @@
 bcrypt==3.1.4
+blinker==1.4
 certifi==2018.8.13
 cffi==1.11.5
 chardet==3.0.4
@@ -18,6 +19,7 @@ psycopg2==2.7.5
 pycparser==2.18
 PyYAML==3.13
 requests==2.19.1
+rollbar==0.14.2
 scout-apm==1.2.3
 six==1.11.0
 SQLAlchemy==1.2.10
