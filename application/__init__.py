@@ -1,5 +1,4 @@
 import os
-import pybrake.flask
 from enum import Enum
 from functools import wraps
 
@@ -9,13 +8,6 @@ from flask_login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_url_path="/static")
-
-app.config["PYBRAKE"] = dict(
-    project_id=193013,
-    project_key="164a4c709733e21729e39466ba9d41b1",
-)
-
-app = pybrake.flask.init_app(app)
 
 if os.environ.get("HEROKU"):
 	# We're running on Heroku.
