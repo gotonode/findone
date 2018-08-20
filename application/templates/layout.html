@@ -36,7 +36,7 @@
 	<script src="/static/js/scripts.js"></script>
 	<script src="/static/js/resize_handler.js"></script>
 
-	<!-- TODO: Include analytics. -->
+	{% include "includes/analytics.html" %}
 </head>
 
 <body onload="{% if current_user.is_authenticated %}getNewMessageCount();{% endif %}">
