@@ -2,6 +2,10 @@
 
 *A full-stack dating service*
 
+___
+
+[![BCH compliance](https://bettercodehub.com/edge/badge/gotonode/findone?branch=master)](https://bettercodehub.com/)
+
 FindOne is a codename for this project. It is subject to change in the future.
 
 Development is underway using **Microsoft Visual Studio Code** and **JetBrains PyCharm Professional**.
