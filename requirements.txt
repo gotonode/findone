@@ -20,7 +20,6 @@ pycparser==2.18
 PyYAML==3.13
 requests==2.19.1
 rollbar==0.14.3
-scout-apm==1.2.3
 six==1.11.0
 SQLAlchemy==1.2.11
 urllib3==1.23
