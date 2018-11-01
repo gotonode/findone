@@ -12,10 +12,11 @@ app = Flask(__name__, static_url_path="/static")
 import rollbar
 import rollbar.contrib.flask
 
-
 @app.before_first_request
 def init_rollbar():
-    rollbar.init(
+	"""This app allows us to track errors in the Flask environment."""
+	
+	rollbar.init(
         "4696f6afdcbc41399fd694550535b780",
         "development",
         root=os.path.dirname(os.path.realpath(__file__)),
@@ -87,10 +88,6 @@ def login_required_with_role(role):
 
 	return wrapper
 
-
-# The following imports are necessary. Do not remove them even if your environment/IDE claims that
-# they are not needed. This does introduce a cyclomatic issue but in this instance it is by purpose.
-
 import application.views
 from application.classes.tags import models, views
 from application.classes.account import models, views
@@ -103,9 +100,6 @@ from application.classes.block import models, views
 from application.classes.admin import views
 from application.classes.debug import views
 from application.classes.generic import views
-
-# Do not remove the imports above. If your IDE automatically removes them, re-clone
-# this repository from GitHub (or, if you know how, revert the changes).
 
 from application.classes.account.models import Account
 
@@ -122,12 +116,6 @@ def load_user(user_id):
 
 	return Account.query.get(user_id)
 
-
-# This was causing random crashes on Heroku, and it seems the same issue is with other students.
-# About every 5th or so GET request would result in a server error concerning an SSL issue.
-# Will look into it on a later occasion.
-#
-# Update: Setting the workers to 1 fixed it. But is it good for production?
 try:
 	db.create_all()
 except:
