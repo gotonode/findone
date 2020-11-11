@@ -18,7 +18,7 @@ psutil==5.5.1
 psycopg2==2.7.7
 pycparser==2.19
 PyYAML==5.1
-requests==2.21.0
+requests==2.25.0
 scout-apm==2.0.2
 rollbar==0.14.6
 six==1.12.0
