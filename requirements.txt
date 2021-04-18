@@ -22,7 +22,7 @@ requests==2.25.1
 scout-apm==2.18.0
 rollbar==0.15.2
 six==1.12.0
-Werkzeug==0.16.1
+Werkzeug==1.0.1
 SQLAlchemy==1.4.9
 urllib3==1.26.4
 WTForms==2.2.1
