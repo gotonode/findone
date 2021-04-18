@@ -43,7 +43,7 @@ else:
 
 	# This is of format: "postgres://user:password@localhost:5432/database", and the
 	# connection string is stored locally (the password is a secret).
-	app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("LOCAL_DATABASE_URL")
+	app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("LOCAL_DATABASE_URL").replace("://", "ql://", 1)
 	app.config["SQLALCHEMY_ECHO"] = True  # For debugging purposes.
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
