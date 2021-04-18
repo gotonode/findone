@@ -27,7 +27,7 @@ got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
 if os.environ.get("HEROKU"):
 	# We're running on Heroku.
 	app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")  # This is secretly stored on Heroku.
-	app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+	app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL").replace("://", "ql://", 1)
 	app.config["SQLALCHEMY_ECHO"] = False
 
 	# These are only when running on Heroku, and provide statistics for the developers
@@ -41,9 +41,9 @@ else:
 	# We're running locally.
 	app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")  # This is locally stored as an environment variable.
 
-	# This is of format: "postgres://user:password@localhost:5432/database", and the
+	# This is of format: "postgresql://user:password@localhost:5432/database", and the
 	# connection string is stored locally (the password is a secret).
-	app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("LOCAL_DATABASE_URL").replace("://", "ql://", 1)
+	app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("LOCAL_DATABASE_URL")
 	app.config["SQLALCHEMY_ECHO"] = True  # For debugging purposes.
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
