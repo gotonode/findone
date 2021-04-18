@@ -1,6 +1,6 @@
 # FindOne
 
-*A full-stack dating service* (development halted)
+*A full-stack dating service in Finnish* (development halted)
 
 | Better Code Hub | Codacy | codebeat | CodeFactor | LGTM (alerts) | LGTM (grade) |
 | :-: | :-: | :-: | :-: | :-: | :-: |
