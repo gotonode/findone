@@ -1,6 +1,6 @@
 # FindOne
 
-*A full-stack dating service*
+*A full-stack dating service* (development halted)
 
 | Better Code Hub | Codacy | codebeat | CodeFactor | LGTM (alerts) | LGTM (grade) |
 | :-: | :-: | :-: | :-: | :-: | :-: |
@@ -9,5 +9,3 @@
 To access FindOne, go here: [https://findone.herokuapp.com/](https://findone.herokuapp.com/)
 
 FindOne is the codename for this project. It is subject to change in the future.
-
-Development is underway using **JetBrains PyCharm Community**.
