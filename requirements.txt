@@ -19,7 +19,7 @@ psycopg2==2.8.6
 pycparser==2.20
 PyYAML==5.4.1
 requests==2.25.1
-scout-apm==2.18.0
+scout-apm==2.19.0
 rollbar==0.15.2
 six==1.15.0
 Werkzeug==1.0.1
