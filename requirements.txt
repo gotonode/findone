@@ -27,3 +27,4 @@ SQLAlchemy==1.4.9
 urllib3==1.26.4
 WTForms==2.3.3
 email-validator==1.1.2
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
